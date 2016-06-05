@@ -31,7 +31,7 @@ in your `csc370-project` directory. When you're ready to stop working on the
 project and go back to the real world, run the command:
 
 ```
-deactivate
+$ deactivate
 ```
 
 and `virtualenv` will tear down the virtual environment and go back to reality.
