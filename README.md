@@ -38,12 +38,25 @@ and `virtualenv` will tear down the virtual environment and go back to reality.
 Remember to `source venv/bin/activate` again every time you want to work on the
 project! Otherwise, python won't be able to find the `flask` package.
 
+# Starting the Server
+
+You can start the server by simply running:
+
+```
+$ python app.py
+```
+
+The server should then be accessible on your local machine on port 5000.
+Navigate to `http://localhost:5000/` to see it with your own eyes. Press
+`Ctrl-c` in your terminal to kill the server.
+
 # Resources
 
 The links below may help you to understand the project:
 
 ## Flask
 
-http://flask.pocoo.org/docs/0.11/quickstart/
-http://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972
-http://flask.pocoo.org/snippets/54/
+* http://flask.pocoo.org/docs/0.11/quickstart/
+* http://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972
+* http://flask.pocoo.org/snippets/54/
+
