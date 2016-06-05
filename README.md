@@ -50,6 +50,9 @@ The server should then be accessible on your local machine on port 5000.
 Navigate to `http://localhost:5000/` to see it with your own eyes. Press
 `Ctrl-c` in your terminal to kill the server.
 
+Remember to activate your virtual environment (`source venv/bin/activate`)
+before doing this, otherwise it won't work!
+
 # Resources
 
 The links below may help you to understand the project:
