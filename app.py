@@ -35,17 +35,23 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error = None
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
 
         # TODO(edand): Authenticate here.
         # Just assume we put in OK credentials for now.
-        login_user(SaidditUser(username))
+        authenticated = True
 
-        return redirect(url_for('index'))
+        if authenticated:
+            login_user(SaidditUser(username))
+            return redirect(url_for('index'))
+        else:
+            error = 'Could not authenticate. Wrong password?'
 
-    return render_template('login.html')
+    return render_template('login.html', error=error)
 
 if __name__ == '__main__':
     app.run()

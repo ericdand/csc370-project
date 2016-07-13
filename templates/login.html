@@ -1,16 +1,16 @@
 <head>
 </head>
 <body>
-	<div class="container">
+	<div>
 		<h1>Please login</h1>
+		{% if error %}
+			<p class="error"><strong>Error:</strong> {{ error }}
+		{% endif %}
 		<br>
 		<form action="" method="post">
 			<input type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
 			<input type="password" placeholder="Password" name="password" value="{{ request.form.password }}">
-			<input class="btn btn-default" type="submit" value="Login">
+			<input type="submit" value="Login">
 		</form>
-		{% if error %}
-			<p class="error"><strong>Error:</strong> {{ error }}
-		{% endif %}
 	</div>
 </body>
