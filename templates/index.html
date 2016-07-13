@@ -12,6 +12,9 @@
 		<p>Welcome to Saiddit!</p>
 	</div>
 	<!-- Add more cool stuff here. -->
+	{% if current_user.is_authenticated %}
+	<div>Welcome, {{current_user.get_id()}}.</div>
+	{% endif %}
 </body>
 
 </html>
