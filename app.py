@@ -45,6 +45,12 @@ def login():
         # Just assume we put in OK credentials for now.
         authenticated = True
 
+        # cursor = mysql.connect().cursor()
+        # cursor.execute("SELECT * from Accounts where username='"+ username +"'AND password='"+ password+"';" )
+        # data = cursor.fetchone()
+        # if data is not None:
+        #     authenticated = True
+
         if authenticated:
             login_user(SaidditUser(username))
             return redirect(url_for('index'))
