@@ -1,6 +1,8 @@
 from flask import Flask, render_template
-from flaskext.mysql import MySQL
+from flask_mysql import MySQL
 from flask_login import LoginManager
+
+from user import SaidditUser
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -15,6 +17,10 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return SaidditUser(user_id)
 
 @app.route('/')
 def main():
