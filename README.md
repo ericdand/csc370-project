@@ -8,7 +8,7 @@ Systems) course.
 ## On OS X
 
 You'll need to first get `pip`, then use that to install `virtualenv`, `flask`,
-and `flask-mysql`:
+`flask-login`, and `flask-mysql`:
 
 ```
 $ sudo easy_install pip
@@ -23,12 +23,13 @@ Flask in a virtual environment (as recommended by the Flask docs):
 $ virtualenv venv
 $ source venv/bin/activate
 $ pip install flask
+$ pip install flask-login
 $ pip install flask-mysql
 ```
 
-This will install `flask` and `flask-mysql` only within a virtual environment
-in your `csc370-project` directory. When you're ready to stop working on the
-project and go back to the real world, run the command:
+This will install `flask`, `flask-login`, and `flask-mysql` only within a
+virtual environment in your `csc370-project` directory. When you're ready to
+stop working on the project and go back to the real world, run the command:
 
 ```
 $ deactivate

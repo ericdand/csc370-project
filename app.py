@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flaskext.mysql import MySQL
+from flask_login import LoginManager
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -11,6 +12,9 @@ app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 # TODO(ericdand): Uncomment the line below once
 # you have the database actually set up.
 # mysql.init_app(app)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 @app.route('/')
 def main():
