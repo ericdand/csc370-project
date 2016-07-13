@@ -1,6 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flaskext.mysql import MySQL
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, login_required, logout_user
 
 from user import SaidditUser
 
@@ -23,11 +23,29 @@ login_manager.init_app(app)
 def load_user(user_id):
     return SaidditUser(user_id)
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
 @app.route('/')
-def main():
-    # TODO(edand): This is just a demo user.
-    login_user(SaidditUser('admin'))
+def index():
     return render_template('index.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        # TODO(edand): Authenticate here.
+        # Just assume we put in OK credentials for now.
+        login_user(SaidditUser(username))
+
+        return redirect(url_for('index'))
+
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run()
