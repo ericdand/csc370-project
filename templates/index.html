@@ -11,7 +11,18 @@
 	<div>
 		<p>Welcome to Saiddit!</p>
 	</div>
-	<!-- Add more cool stuff here. -->
+
+	{% if current_user.is_authenticated %}
+		<div>
+			Welcome, {{ current_user.get_id() }}.
+			<br>
+			<a href="{{ url_for('logout') }}">Log out</a>
+		</div>
+	{% else %}
+		<div>
+			<a href="{{ url_for('login') }}">Login</a>
+		</div>
+	{% endif %}
 </body>
 
 </html>
