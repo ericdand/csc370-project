@@ -1,0 +1,14 @@
+<head>
+	<title>Make a new post</title>
+</head>
+<body>
+	<form action="" method="post">
+		<input type="text" placeholder="Title" name="title" value="{{ request.form.title }}">
+		<input type="textarea" rows="30" placeholder="Write your post here!" name="text" value="{{ request.form.text }}">
+		<select name="subsaiddit">
+			{% for ss in user_subsaiddits %}
+				<option value="{{ ss }}">{{ ss }}</option>
+			{% endfor %}
+		<input type="submit" value="Post">
+	</form>
+</body>

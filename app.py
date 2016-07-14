@@ -20,6 +20,12 @@ app.secret_key = '\x88j\xd7\x1f&\xc6\x87(X\xa0\xc9\xc4\x96\xffL\xbe\xc8K\xa5JM\x
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+default_subsaiddits = [
+        "Cats n stuff",
+        "Meta-Saiddit",
+        "The Weather Subsaiddit",
+        ]
+
 @login_manager.user_loader
 def load_user(user_id):
     return SaidditUser(user_id)
@@ -39,12 +45,6 @@ def get_top_posts_for_subsaiddits(subsaiddits):
                 SaidditPost("top post from {0}".format(ss),
                     "text", "author", "sometime"))
     return top_posts
-
-default_subsaiddits = [
-        "Cats n stuff",
-        "Meta-Saiddit",
-        "The Weather Subsaiddit",
-        ]
 
 @app.route('/')
 def index():
@@ -80,6 +80,20 @@ def login():
             error = 'Could not authenticate. Wrong password?'
 
     return render_template('login.html', error=error)
+
+@app.route('/post', methods=['GET', 'POST'])
+def post():
+    if request.method == 'POST':
+        # TODO(edand): Actually store the post.
+        print request.form
+        return redirect(url_for('index'))
+    else:
+        if current_user.is_authenticated:
+            subsaiddits = current_user.subscriptions
+        else:
+            subsaiddits = default_subsaiddits
+        return render_template('post.html', user_subsaiddits=subsaiddits)
+
 
 if __name__ == '__main__':
     app.run()
