@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flaskext.mysql import MySQL
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from user import SaidditUser
 from post import SaidditPost
@@ -30,12 +30,29 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+def get_top_posts_for_subsaiddits(subsaiddits):
+    top_posts = []
+    for ss in subsaiddits:
+        # Get top posts from ss.
+        # TODO(edand): These are test values for now.
+        top_posts.append(
+                SaidditPost("top post from {0}".format(ss),
+                    "text", "author", "sometime"))
+    return top_posts
+
+default_subsaiddits = [
+        "Cats n stuff",
+        "Meta-Saiddit",
+        "The Weather Subsaiddit",
+        ]
+
 @app.route('/')
 def index():
-    top_posts = [
-            SaidditPost("title", "text", "author", "sometime"),
-            SaidditPost("title", "text", "author", "a while ago", "http://google.com"),
-    ]
+    top_posts = []
+    if current_user.is_authenticated:
+        top_posts = get_top_posts_for_subsaiddits(current_user.subscriptions)
+    else:
+        top_posts = get_top_posts_for_subsaiddits(default_subsaiddits)
     return render_template('index.html', top_posts=top_posts)
 
 @app.route('/login', methods=['GET', 'POST'])
