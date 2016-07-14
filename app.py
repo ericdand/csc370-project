@@ -3,6 +3,7 @@ from flaskext.mysql import MySQL
 from flask_login import LoginManager, login_user, login_required, logout_user
 
 from user import SaidditUser
+from post import SaidditPost
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -31,7 +32,11 @@ def logout():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    top_posts = [
+            SaidditPost("title", "text", "author", "sometime"),
+            SaidditPost("title", "text", "author", "a while ago", "http://google.com"),
+    ]
+    return render_template('index.html', top_posts=top_posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
