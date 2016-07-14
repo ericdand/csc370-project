@@ -2,17 +2,23 @@
 <html lang="en">
 
 <head>
-	<title>Saiddit</title>
-
-	<!-- Import CSS and JS resources here. -->
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Welcome to Saiddit</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
+<link href="default.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
-	<div>
-		<p>Welcome to Saiddit!</p>
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1>Welcome to Saiddit </h1>
 	</div>
-
-	{% if current_user.is_authenticated %}
+	<div id="menu">
+		<ul>
+			<li class="active"><a href="#">Home</a></li>
+			<li>{% if current_user.is_authenticated %}
 		<div>
 			Welcome, {{ current_user.get_id() }}.
 			<br>
@@ -22,7 +28,37 @@
 		<div>
 			<a href="{{ url_for('login') }}">Login</a>
 		</div>
-	{% endif %}
-</body>
+	{% endif %}</li>
+		</ul>
+	</div>
+</div>
+<hr />
+<!-- end header -->
+<!-- start page -->
+<div id="wrapper">
+	<div id="page">
+		<!-- start content -->		
+			<div class="post">
+				<h2 class="title">post1 titile</h2>
+				<div class="entry">
+					<p>post_test</p>
+				</div>
+			</div>
+			<div class="post">
+				<h2 class="title">post2 titile</h2>
+				<div class="entry">
+					<p>post_test</p>
+			</div>
+			<div class="post">
+				<h2 class="title">post3 titile</h2>
+				<div class="entry">
+					<p>post_test</p>
+				</div>
+			</div>
+	</div>
+</div>
 
+
+</div>
+</body>
 </html>
