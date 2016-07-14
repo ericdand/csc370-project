@@ -7,8 +7,9 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
-<link href="default.css" rel="stylesheet" type="text/css" />
+<link href="{{ url_for('static', filename = 'styles/index.css') }}" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
 <!-- start header -->
 <div id="header">
@@ -18,47 +19,43 @@
 	<div id="menu">
 		<ul>
 			<li class="active"><a href="#">Home</a></li>
-			<li>{% if current_user.is_authenticated %}
-		<div>
-			Welcome, {{ current_user.get_id() }}.
-			<br>
-			<a href="{{ url_for('logout') }}">Log out</a>
-		</div>
-	{% else %}
-		<div>
-			<a href="{{ url_for('login') }}">Login</a>
-		</div>
-	{% endif %}</li>
+			<li>
+				<div>
+					{% if current_user.is_authenticated %}
+						Welcome, {{ current_user.get_id() }}.
+						<br>
+						<a href="{{ url_for('logout') }}">Log out</a>
+					{% else %}
+						<a href="{{ url_for('login') }}">Login</a>
+					{% endif %}
+				</div>
+			</li>
 		</ul>
 	</div>
-</div>
-<hr />
-<!-- end header -->
-<!-- start page -->
-<div id="wrapper">
-	<div id="page">
-		<!-- start content -->		
-			<div class="post">
-				<h2 class="title">post1 titile</h2>
-				<div class="entry">
-					<p>post_test</p>
+
+	<!-- Top posts -->
+	<div id="wrapper">
+		<div id="page">
+			<h3>Top posts</h3>
+			{% for post in top_posts %}
+				<div class="post">
+					<span class="buttons">
+						<div class="arrow-up"></div>
+						<div class="score">{{ post.upvotes - post.downvotes }}</div>
+						<div class="arrow-down"></div>
+					</span>
+					{% if post.url %}
+						<a href="{{ post.url }}"><p class="title">{{ post.title }}</p></a>
+					{% else %}
+						<p class="title">{{ post.title }}</p>
+					{% endif %}
+					<div class="text">{{ post.text }}</div>
+					<p>Posted by {{ post.author }} at {{ post.published_date }}.</p>
 				</div>
-			</div>
-			<div class="post">
-				<h2 class="title">post2 titile</h2>
-				<div class="entry">
-					<p>post_test</p>
-			</div>
-			<div class="post">
-				<h2 class="title">post3 titile</h2>
-				<div class="entry">
-					<p>post_test</p>
-				</div>
-			</div>
+			{% endfor %}
+		</div>
 	</div>
-</div>
 
-
-</div>
 </body>
+
 </html>
