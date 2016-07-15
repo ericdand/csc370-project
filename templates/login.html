@@ -1,17 +1,44 @@
-<head>
-	<title>Login to Saiddit</title>
-</head>
-<body>
-	<div>
-		<h1>Please login</h1>
-		{% if error %}
-			<p class="error"><strong>Error:</strong> {{ error }}
-		{% endif %}
-		<br>
-		<form action="" method="post">
-			<input type="text" placeholder="Username" name="username" value="{{ request.form.username }}">
-			<input type="password" placeholder="Password" name="password" value="{{ request.form.password }}">
-			<input type="submit" value="Login">
-		</form>
-	</div>
-</body>
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312"> 
+<title>SaidditLoginpage</title> 
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/loginpage.css') }}"> 
+</head> 
+ 
+<body> 
+
+<div class="wrap"> 
+  <form action="/login" method="post"> 
+    <section class="loginForm"> 
+      <header> 
+        <h1>Please login</h1> 
+      </header>
+      <div class="loginForm_content"> 
+      
+        <fieldset> 
+
+          <div class="inputWrap"> 
+            <input type="text" name="username" placeholder="Username" value="{{
+          request.form.username }}"> 
+          </div> 
+          <div class="inputWrap"> 
+            <input type="password" name="password" placeholder="Password" value="{{
+          request.form.password }}"> 
+          </div> 
+        </fieldset> 
+        <fieldset> 
+          <input type="submit" value="submit"> 
+   
+        </fieldset> 
+        <fieldset>
+         {% if error %}
+ 		 <p style="color:red">{{ error }}</p>
+		 {% endif %}
+	    </fieldset>
+      </div> 
+      
+    </section> 
+  </form> 
+</div> 
+</body> 
+</html> 
