@@ -1,14 +1,37 @@
 <head>
-	<title>Make a new post</title>
+	<title>post a new post</title> 
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles/post.css') }}"> 
 </head>
+
 <body>
-	<form action="" method="post">
-		<input type="text" placeholder="Title" name="title" value="{{ request.form.title }}">
-		<input type="textarea" rows="30" placeholder="Write your post here!" name="text" value="{{ request.form.text }}">
-		<select name="subsaiddit">
+<div class="wrap">
+	<form action="" method="post" >
+	<section class="basic-grey">
+		<h1>Add your post
+		</h1>
+		<label>
+			<span>Title :</span>
+			<input type="text" name="title" placeholder="Title" value="{{ request.form.title }}" />
+		</label>
+		<label>
+			<span>Text :</span>
+			<textarea type="textarea"  name="text" placeholder="Write your post here!" value="{{ request.form.text }}}" ></textarea>
+		</label>
+				
+		<label>
+			<span>Select :</span>
+			<select name="subsaiddit">
 			{% for ss in user_subsaiddits %}
 				<option value="{{ ss }}">{{ ss }}</option>
 			{% endfor %}
-		<input type="submit" value="Post">
+			</select>
+		</label>
+		<label>
+			<span>&nbsp;</span>
+			<input type="submit" class="button" value="Post" />
+		</label>
+		
+	</section>
 	</form>
+</div>
 </body>
