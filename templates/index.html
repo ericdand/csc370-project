@@ -2,58 +2,46 @@
 <html lang="en">
 
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Welcome to Saiddit</title>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
-<link href="{{ url_for('static', filename = 'styles/index.css') }}" rel="stylesheet" type="text/css" />
+	<title>Saiddit</title>
+
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles/index.css') }}">
 </head>
 
 <body>
-<!-- start header -->
-<div id="header">
-	<div id="logo">
-		<h1>Welcome to Saiddit </h1>
+	<div>
+		<h1>Welcome to Saiddit!</h1>
 	</div>
-	<div id="menu">
-		<ul>
-			<li class="active"><a href="#">Home</a></li>
-			<li>
-				<div>
-					{% if current_user.is_authenticated %}
-						Welcome, {{ current_user.get_id() }}.
-						<br>
-						<a href="{{ url_for('logout') }}">Log out</a>
-					{% else %}
-						<a href="{{ url_for('login') }}">Login</a>
-					{% endif %}
-				</div>
-			</li>
-		</ul>
+
+	<!-- Welcome message and login/logout links -->
+	<div>
+		{% if current_user.is_authenticated %}
+			Welcome, {{ current_user.get_id() }}.
+			<br>
+			<a href="{{ url_for('logout') }}">Log out</a>
+		{% else %}
+			<a href="{{ url_for('login') }}">Login</a>
+		{% endif %}
 	</div>
 
 	<!-- Top posts -->
-	<div id="wrapper">
-		<div id="page">
-			<h3>Top posts</h3>
-			{% for post in top_posts %}
-				<div class="post">
-					<span class="buttons">
-						<div class="arrow-up"></div>
-						<div class="score">{{ post.upvotes - post.downvotes }}</div>
-						<div class="arrow-down"></div>
-					</span>
-					{% if post.url %}
-						<a href="{{ post.url }}"><p class="title">{{ post.title }}</p></a>
-					{% else %}
-						<p class="title">{{ post.title }}</p>
-					{% endif %}
-					<div class="text">{{ post.text }}</div>
-					<p>Posted by {{ post.author }} at {{ post.published_date }}.</p>
-				</div>
-			{% endfor %}
-		</div>
+	<div>
+		<h3>Top posts</h3>
+		{% for post in top_posts %}
+			<div class="post">
+				<span class="buttons">
+					<div class="arrow-up"></div>
+					<div class="score">{{ post.upvotes - post.downvotes }}</div>
+					<div class="arrow-down"></div>
+				</span>
+				{% if post.url %}
+					<a href="{{ post.url }}"><p class="title">{{ post.title }}</p></a>
+				{% else %}
+					<p class="title">{{ post.title }}</p>
+				{% endif %}
+				<div class="text">{{ post.text }}</div>
+				<p>Posted by {{ post.author }} at {{ post.published_date }}.</p>
+			</div>
+		{% endfor %}
 	</div>
 
 </body>
