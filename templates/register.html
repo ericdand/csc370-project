@@ -1,0 +1,44 @@
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<title>register</title> 
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/loginpage.css') }}"> 
+</head> 
+ 
+<body> 
+
+<div class="wrap"> 
+  <form action="/register" method="post"> 
+    <section class="loginForm">
+      <header> 
+        <h1>Please Regist</h1>
+      </header>
+      <div class="loginForm_content"> 
+      
+        <fieldset> 
+
+          <div class="inputWrap"> 
+            <input type="text" name="username" placeholder="Username" value="{{
+          request.form.username }}"> 
+          </div> 
+          <div class="inputWrap"> 
+            <input type="password" name="password" placeholder="Password" value="{{
+          request.form.password }}"> 
+          </div> 
+        </fieldset> 
+        <fieldset> 
+          <input type="submit" value="regist"> 
+   
+        </fieldset> 
+        <fieldset>
+         {% if error %}
+ 		 <p style="color:red">{{ error }}</p>
+		 {% endif %}
+	    </fieldset>
+      </div> 
+      
+    </section> 
+  </form> 
+</div> 
+</body> 
+</html> 
