@@ -54,6 +54,19 @@ Navigate to `http://localhost:5000/` to see it with your own eyes. Press
 Remember to activate your virtual environment (`source venv/bin/activate`)
 before doing this, otherwise it won't work!
 
+# Creating the Database
+
+To create and populate a database with the schema expected by the server
+application, run both of the `.sql` scripts in the project root, like so:
+
+```
+$ mysql -u root -p < database-creation.sql
+$ mysql -u root -p < database-population.sql
+```
+
+Note that you first need a MySQL server running locally, and to have set up a
+user named `root` prior to running these commands.
+
 # Resources
 
 The links below may help you to understand the project:
