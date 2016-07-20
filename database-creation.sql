@@ -77,8 +77,8 @@ FOREIGN KEY (parent_id) REFERENCES Posts(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Votes_on_comments( 
-	username VARCHAR(20),
-	comment_id INT,
+username VARCHAR(20),
+comment_id INT,
 upvote_or_downvote VARCHAR(8) NOT NULL, 
 created DATETIME DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (username, comment_id),	
