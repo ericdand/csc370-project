@@ -98,11 +98,26 @@ def login():
 
     return render_template('login.html', error=error)
 
+def store_post(title, text, author, subsaiddit):
+    conn = mysql.connect()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO Posts (title, text, author, subsaiddit) VALUES ('{0}', '{1}', '{2}', '{3}');".format(title, text, author, subsaiddit))
+    cur.close()
+    conn.commit()
+    conn.close()
+
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     if request.method == 'POST':
-        # TODO(edand): Actually store the post.
-        print request.form['text']
+        # TODO(edand): Show an error message telling the user to log in
+        # if they aren't authenticated instead of just silently failing
+        # to store their post.
+        if current_user.is_authenticated:
+            title = request.form['title']
+            text = request.form['text']
+            author = current_user.id
+            subsaiddit = request.form['subsaiddit']
+            store_post(title, text, author, subsaiddit)
         return redirect(url_for('index'))
     else:
         if current_user.is_authenticated:
