@@ -1,10 +1,11 @@
 USE saiddit;
 
+/* Both bob and jane's passwords are (the sha-256 digest of) their names. */
 INSERT INTO Accounts
-VALUES("bob", "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362931b9824", 45);
+VALUES("bob", "81b637d8fcd2c6da6359e6963113a1170de795e4b725b84d1e0b4cfd9ec58ce9", 45);
 
 INSERT INTO Accounts 
-VALUES("jane", "2ce24dba5fb0a30e26e83b2ac5b2229e1b161e5c1fa7425e73043362931b9824", 0);
+VALUES("jane", "81f8f6dde88365f3928796ec7aa53f72820b06db8664f5fe76a7eb13e24546a2", 0);
 
 INSERT INTO Friends
 VALUES("bob", "jane"); 

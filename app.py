@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flaskext.mysql import MySQL
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from hashlib import sha256
 
 from user import SaidditUser
 from post import SaidditPost
@@ -72,7 +73,7 @@ def login():
 
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
+        password = sha256(request.form['password']).hexdigest()
         subscriptions = []
 
         # TODO(edand): Authenticate here.
