@@ -77,3 +77,7 @@ The links below may help you to understand the project:
 * http://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972
 * http://flask.pocoo.org/snippets/54/
 
+## MySQL in Python
+
+* https://www.python.org/dev/peps/pep-0249/
+
