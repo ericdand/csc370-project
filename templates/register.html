@@ -11,23 +11,24 @@
   <form action="/register" method="post"> 
     <section class="loginForm">
       <header> 
-        <h1>Please Regist</h1>
+        <h1>Registration</h1>
       </header>
       <div class="loginForm_content"> 
       
         <fieldset> 
 
           <div class="inputWrap"> 
-            <input type="text" name="username" placeholder="Username" value="{{
-          request.form.username }}"> 
+            <input type="text" name="username" placeholder="Username" value="{{ request.form.username }}"> 
           </div> 
           <div class="inputWrap"> 
-            <input type="password" name="password" placeholder="Password" value="{{
-          request.form.password }}"> 
+            <input type="password" name="password" placeholder="Password" value="{{ request.form.password }}"> 
+          </div> 
+          <div class="inputWrap"> 
+            <input type="password" name="verify-password" placeholder="Verify Password" value="{{ request.form.verify_password }}"> 
           </div> 
         </fieldset> 
         <fieldset> 
-          <input type="submit" value="regist"> 
+          <input type="submit" value="register"> 
    
         </fieldset> 
         <fieldset>
@@ -36,7 +37,6 @@
 		 {% endif %}
 	    </fieldset>
       </div> 
-      
     </section> 
   </form> 
 </div> 

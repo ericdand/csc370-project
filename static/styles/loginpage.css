@@ -45,12 +45,6 @@ fieldset {
     border:none; 
     padding:10px 10px 0; 
 } 
-fieldset input[type=text] { 
-    background:url(style/default/images/user.png) 4px 5px no-repeat; 
-} 
-fieldset input[type=password] { 
-    background:url(style/default/images/password.png) 4px 5px no-repeat; 
-} 
 fieldset input[type=text], fieldset input[type=password] { 
     width:100%; 
     line-height:2em; 

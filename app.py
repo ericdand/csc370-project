@@ -111,5 +111,9 @@ def post():
             subsaiddits = get_default_subsaiddits()
         return render_template('post.html', user_subsaiddits=subsaiddits)
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    return render_template('register.html')
+
 if __name__ == '__main__':
     app.run()
