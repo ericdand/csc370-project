@@ -12,9 +12,7 @@ app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
 app.config['MYSQL_DATABASE_DB'] = 'Saiddit'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-# TODO(ericdand): Uncomment the line below once
-# you have the database actually set up.
-# mysql.init_app(app)
+mysql.init_app(app)
 
 app.secret_key = '\x88j\xd7\x1f&\xc6\x87(X\xa0\xc9\xc4\x96\xffL\xbe\xc8K\xa5JM\xdc\xae+'
 login_manager = LoginManager()
@@ -26,9 +24,19 @@ default_subsaiddits = [
         "The Weather Subsaiddit",
         ]
 
+def build_saiddituser_for_username(username):
+    conn = mysql.connect()
+    cur = conn.cursor()
+    cur.execute("SELECT subsaiddit from Subscribers WHERE username = '{0}';".format(username))
+    result = cur.fetchall()
+    subscriptions = [e[0] for e in result]
+    cur.close()
+    conn.close()
+    return SaidditUser(username, subscriptions)
+
 @login_manager.user_loader
 def load_user(user_id):
-    return SaidditUser(user_id)
+    return build_saiddituser_for_username(user_id)
 
 @app.route('/logout')
 @login_required
@@ -38,12 +46,15 @@ def logout():
 
 def get_top_posts_for_subsaiddits(subsaiddits):
     top_posts = []
+    conn = mysql.connect()
     for ss in subsaiddits:
-        # Get top posts from ss.
-        # TODO(edand): These are test values for now.
-        top_posts.append(
-                SaidditPost("top post from {0}".format(ss),
-                    "text", "author", "sometime"))
+        cur = conn.cursor()
+        cur.execute("SELECT title, text, author, created, url FROM Posts WHERE subsaiddit = '{0}' ORDER BY created DESC LIMIT 10;".format(ss))
+        result = cur.fetchall()
+        for post in result:
+            top_posts.append(SaidditPost(*post))
+        cur.close()
+    conn.close()
     return top_posts
 
 @app.route('/')
@@ -62,19 +73,20 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        subscriptions = []
 
         # TODO(edand): Authenticate here.
         # Just assume we put in OK credentials for now.
         authenticated = True
 
-        # cursor = mysql.connect().cursor()
-        # cursor.execute("SELECT * from Accounts where username='"+ username +"'AND password='"+ password+"';" )
-        # data = cursor.fetchone()
-        # if data is not None:
-        #     authenticated = True
-
-        if authenticated:
-            login_user(SaidditUser(username))
+        conn = mysql.connect()
+        cur = conn.cursor()
+        cur.execute("SELECT username from Accounts where username='{0}' AND password='{1}';".format(username, password))
+        data = cur.fetchone()
+        cur.close()
+        conn.close()
+        if data is not None:
+            login_user(build_saiddituser_for_username(*data))
             return redirect(url_for('index'))
         else:
             error = 'Could not authenticate. Wrong password?'
@@ -85,7 +97,6 @@ def login():
 def post():
     if request.method == 'POST':
         # TODO(edand): Actually store the post.
-        print request.form
         return redirect(url_for('index'))
     else:
         if current_user.is_authenticated:
@@ -93,7 +104,6 @@ def post():
         else:
             subsaiddits = default_subsaiddits
         return render_template('post.html', user_subsaiddits=subsaiddits)
-
 
 if __name__ == '__main__':
     app.run()
