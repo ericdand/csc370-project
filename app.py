@@ -19,12 +19,6 @@ app.secret_key = '\x88j\xd7\x1f&\xc6\x87(X\xa0\xc9\xc4\x96\xffL\xbe\xc8K\xa5JM\x
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-default_subsaiddits = [
-        "Cats n stuff",
-        "Meta-Saiddit",
-        "The Weather Subsaiddit",
-        ]
-
 def build_saiddituser_for_username(username):
     conn = mysql.connect()
     cur = conn.cursor()
@@ -58,13 +52,23 @@ def get_top_posts_for_subsaiddits(subsaiddits):
     conn.close()
     return top_posts
 
+def get_default_subsaiddits():
+    defaults = []
+    conn = mysql.connect()
+    cur = conn.cursor()
+    cur.execute("SELECT title FROM Subsaiddits WHERE default_or_not_default = 'default';")
+    result = [e[0] for e in cur.fetchall()]
+    cur.close()
+    conn.close()
+    return result
+
 @app.route('/')
 def index():
     top_posts = []
     if current_user.is_authenticated:
         top_posts = get_top_posts_for_subsaiddits(current_user.subscriptions)
     else:
-        top_posts = get_top_posts_for_subsaiddits(default_subsaiddits)
+        top_posts = get_top_posts_for_subsaiddits(get_default_subsaiddits())
     return render_template('index.html', top_posts=top_posts)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -98,12 +102,13 @@ def login():
 def post():
     if request.method == 'POST':
         # TODO(edand): Actually store the post.
+        print request.form['text']
         return redirect(url_for('index'))
     else:
         if current_user.is_authenticated:
             subsaiddits = current_user.subscriptions
         else:
-            subsaiddits = default_subsaiddits
+            subsaiddits = get_default_subsaiddits()
         return render_template('post.html', user_subsaiddits=subsaiddits)
 
 if __name__ == '__main__':

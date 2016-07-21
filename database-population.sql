@@ -11,10 +11,31 @@ INSERT INTO Friends
 VALUES("bob", "jane"); 
 
 INSERT INTO Subsaiddits (title, description, default_or_not_default, creator)
-VALUES("pokemon", "for discussion of all things pokemon", "default", "bob");  
+VALUES("pokemon", "for discussion of all things pokemon", "default", "bob");
+
+INSERT INTO Subsaiddits (title, description, default_or_not_default, creator)
+VALUES("cats n stuff", "CATS!!!!", "default", "jane");
+
+INSERT INTO Subsaiddits (title, description, default_or_not_default, creator)
+VALUES("meta-saiddit", "for discussion of saiddit itself", "not default", "bob");
+
+INSERT INTO Subsaiddits (title, description, default_or_not_default, creator)
+VALUES("weather", "because nothing is more interesting", "default", "jane");
 
 INSERT INTO Posts (author, title, url, text, subsaiddit)
 VALUES("bob", "Pokemon Go is cool", "http://www.pokemon.com", "For serious, guys.", "pokemon");
+
+INSERT INTO Posts (author, title, text, subsaiddit)
+VALUES("jane", "It rained today", "Now my shoes are all wet.", "weather");
+
+INSERT INTO Posts (author, title, text, subsaiddit)
+VALUES("jane", "Look at this kitten", "(^*.*^)", "cats n stuff");
+
+INSERT INTO Posts (author, title, text, subsaiddit)
+VALUES("bob", "What IS Saiddit, anyway?", "I've often wondered why I'm even here.", "meta-saiddit");
+
+INSERT INTO Posts (author, title, text, subsaiddit)
+VALUES("jane", "I caught a rare pokemon!", "I'm very proud of myself.", "pokemon");
 
 INSERT INTO Favourites (username, post_id)
 VALUES("bob", 1); 
